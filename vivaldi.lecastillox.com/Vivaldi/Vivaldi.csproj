@@ -43,6 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="DecimalTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Error_Provider.cs">
       <SubType>Component</SubType>
     </Compile>
