@@ -54,6 +54,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Local.resx</DependentUpon>
     </Compile>
+    <Compile Include="NumericTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EmailTextBox.cs">
       <SubType>Component</SubType>
