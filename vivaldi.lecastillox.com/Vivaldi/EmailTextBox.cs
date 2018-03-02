@@ -1,4 +1,5 @@
-﻿using System;
+﻿//EXPERIMENTAL
+using System;
 using System.Text;
 
 namespace Vivaldi.UserControls
@@ -6,11 +7,11 @@ namespace Vivaldi.UserControls
     using System.Text.RegularExpressions;
     using System.Windows.Forms;
 
-    public partial class TextBox_Email : TextBox
+    public partial class EmailTextBox : TextBox
     {
         System.Windows.Forms.ToolTip tt;
-
-        public TextBox_Email()
+        Error_Provider ep;
+        public EmailTextBox()
         {
             this.Enter += new System.EventHandler(this.TextBox_Email_Enter);
             this.Leave += new EventHandler(TextBox_Email_Leave);
@@ -19,6 +20,7 @@ namespace Vivaldi.UserControls
             this.MaxLength = 300;
             this.Size = new System.Drawing.Size(200, 22);
             tt = new System.Windows.Forms.ToolTip();
+            ep = new Error_Provider();
             Valido = false;
         }
 
@@ -30,7 +32,8 @@ namespace Vivaldi.UserControls
                 @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$";
             if (Regex.IsMatch(this.Text, pattern))
             {
-                MostratToolTip(true);
+                //MostratToolTip(true);
+                this.BackColor = System.Drawing.Color.Empty;
                 Valido = true;
             }
             else if (string.IsNullOrWhiteSpace(this.Text))
@@ -40,10 +43,14 @@ namespace Vivaldi.UserControls
             }
             else
             {
-                MostratToolTip(false);
+                //MostratToolTip(false);
+                ep.Alerta(this, "El email ingresado no es valido.", Tipo_EP.Rechazar);
                 Valido = false;
             }
         }
+        /// <summary>
+        /// Obtiene o establece un valor que indica si el email es valido
+        /// </summary>
         public bool Valido { get; set; }
         private void TextBox_Email_Enter(object sender, EventArgs e)
         {
