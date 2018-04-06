@@ -1,0 +1,1074 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="db_mantenimientoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="catalogo_parte_principal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="text" />
+        </EntityType>
+        <EntityType Name="catalogo_parte_secundaria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="text" />
+          <Property Name="catalogo_parte_principal_id" Type="int" />
+          <Property Name="estado" Type="int" />
+          <Property Name="tipo_sub_parte" Type="int" />
+        </EntityType>
+        <EntityType Name="emp_empleado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="cedula" Type="nchar" MaxLength="10" />
+          <Property Name="cargo_id" Type="int" />
+          <Property Name="pwd" Type="text" />
+          <Property Name="activo" Type="bit" />
+          <Property Name="fecha_activacion" Type="date" />
+          <Property Name="fecha_desactivacion" Type="date" />
+          <Property Name="per_persona_cedula_activacion" Type="nchar" MaxLength="10" />
+          <Property Name="tipo_usuario" Type="int" />
+          <Property Name="observaciones_activacion" Type="text" />
+          <Property Name="observaciones_desactivacion" Type="text" />
+        </EntityType>
+        <EntityType Name="orde_detalle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="catalogo_parte_principal_id" Type="int" />
+          <Property Name="catalogo_parte_secundaria_id" Type="int" />
+          <Property Name="accion_realizada" Type="int" />
+          <Property Name="cantidad" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="observacion" Type="text" />
+          <Property Name="estado" Type="bit" />
+          <Property Name="accion_requerida" Type="int" />
+          <Property Name="orden_id" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="orden">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="tipo_oden" Type="int" Nullable="false" />
+          <Property Name="fecha" Type="date" />
+          <Property Name="hora" Type="time" Precision="7" />
+          <Property Name="estado" Type="int" />
+          <Property Name="ve_vehiculo_responsable_id" Type="int" />
+          <Property Name="emp_empleado_id" Type="int" />
+          <Property Name="observacion" Type="text" />
+          <Property Name="km_ingreso" Type="text" />
+          <Property Name="km_egreso" Type="text" />
+        </EntityType>
+        <EntityType Name="Pais">
+          <Key>
+            <PropertyRef Name="PaisCodigo" />
+          </Key>
+          <Property Name="PaisCodigo" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="PaisNombre" Type="char" MaxLength="52" Nullable="false" />
+          <Property Name="PaisContinente" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PaisRegion" Type="varchar" MaxLength="26" Nullable="false" />
+          <Property Name="PaisArea" Type="float" Nullable="false" />
+          <Property Name="PaisIndependencia" Type="smallint" />
+          <Property Name="PaisPoblacion" Type="int" Nullable="false" />
+          <Property Name="PaisExpectativaDeVida" Type="float" />
+          <Property Name="PaisProductoInternoBruto" Type="float" />
+          <Property Name="PaisProductoInternoBrutoAntiguo" Type="float" />
+          <Property Name="PaisNombreLocal" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="PaisGobierno" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="PaisJefeDeEstado" Type="varchar" MaxLength="60" />
+          <Property Name="PaisCapital" Type="int" />
+          <Property Name="PaisCodigo2" Type="char" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="per_persona">
+          <Key>
+            <PropertyRef Name="cedula" />
+          </Key>
+          <Property Name="cedula" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombres" Type="text" Nullable="false" />
+          <Property Name="apellidos" Type="text" Nullable="false" />
+          <Property Name="fecha_nacimiento" Type="date" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="ve_vehiculo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="ve_vehiculo_modelo_id" Type="int" Nullable="false" />
+          <Property Name="ve_vehiculo_color_id" Type="int" Nullable="false" />
+          <Property Name="anio_fabricacion" Type="int" />
+          <Property Name="anio_compra" Type="int" Nullable="false" />
+          <Property Name="cilindraje" Type="nchar" MaxLength="10" />
+          <Property Name="codigo" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="codigo_anterior" Type="nchar" MaxLength="10" />
+          <Property Name="color" Type="nchar" MaxLength="10" />
+          <Property Name="costo" Type="nchar" MaxLength="10" />
+          <Property Name="estado" Type="int" />
+          <Property Name="PaisCodigo" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="placa" Type="text" />
+          <Property Name="placa_provisional" Type="text" />
+          <Property Name="serie_chasis" Type="text" />
+          <Property Name="serie_motor" Type="text" />
+        </EntityType>
+        <EntityType Name="ve_vehiculo_color">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="codigo" Type="text" />
+          <Property Name="nombre_especifico" Type="text" />
+          <Property Name="nombre_comun" Type="text" />
+        </EntityType>
+        <EntityType Name="ve_vehiculo_marca">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="text" Nullable="false" />
+          <Property Name="obserbacion" Type="text" />
+        </EntityType>
+        <EntityType Name="ve_vehiculo_modelo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="modelo" Type="text" Nullable="false" />
+          <Property Name="observacion" Type="text" />
+          <Property Name="ve_vehiculo_marca_id" Type="int" />
+          <Property Name="tipo_combustible" Type="int" />
+          <Property Name="traccion" Type="bit" />
+          <Property Name="imagen" Type="image" />
+          <Property Name="tipo_motor" Type="int" />
+          <Property Name="ve_vehiculo_tipo_id" Type="int" />
+        </EntityType>
+        <EntityType Name="ve_vehiculo_responsable">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="per_persona_cedula" Type="nchar" MaxLength="10" />
+          <Property Name="ve_vehiculo_id" Type="int" />
+          <Property Name="estado" Type="bit" />
+          <Property Name="fecha" Type="date" />
+        </EntityType>
+        <EntityType Name="ve_vehiculo_tipo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="tipo" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_catalogo_parte_secundaria_catalogo_parte_principal">
+          <End Role="catalogo_parte_principal" Type="Self.catalogo_parte_principal" Multiplicity="0..1" />
+          <End Role="catalogo_parte_secundaria" Type="Self.catalogo_parte_secundaria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="catalogo_parte_principal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="catalogo_parte_secundaria">
+              <PropertyRef Name="catalogo_parte_principal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_emp_empleado_per_persona">
+          <End Role="per_persona" Type="Self.per_persona" Multiplicity="0..1" />
+          <End Role="emp_empleado" Type="Self.emp_empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="per_persona">
+              <PropertyRef Name="cedula" />
+            </Principal>
+            <Dependent Role="emp_empleado">
+              <PropertyRef Name="cedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orde_detalle_catalogo_parte_principal">
+          <End Role="catalogo_parte_principal" Type="Self.catalogo_parte_principal" Multiplicity="0..1" />
+          <End Role="orde_detalle" Type="Self.orde_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="catalogo_parte_principal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="orde_detalle">
+              <PropertyRef Name="catalogo_parte_principal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orde_detalle_catalogo_parte_secundaria">
+          <End Role="catalogo_parte_secundaria" Type="Self.catalogo_parte_secundaria" Multiplicity="0..1" />
+          <End Role="orde_detalle" Type="Self.orde_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="catalogo_parte_secundaria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="orde_detalle">
+              <PropertyRef Name="catalogo_parte_secundaria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orde_detalle_orden">
+          <End Role="orden" Type="Self.orden" Multiplicity="0..1" />
+          <End Role="orde_detalle" Type="Self.orde_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="orden">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="orde_detalle">
+              <PropertyRef Name="orden_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orden_emp_empleado">
+          <End Role="emp_empleado" Type="Self.emp_empleado" Multiplicity="0..1" />
+          <End Role="orden" Type="Self.orden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="emp_empleado">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="orden">
+              <PropertyRef Name="emp_empleado_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orden_ve_vehiculo_responsable">
+          <End Role="ve_vehiculo_responsable" Type="Self.ve_vehiculo_responsable" Multiplicity="0..1" />
+          <End Role="orden" Type="Self.orden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ve_vehiculo_responsable">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="orden">
+              <PropertyRef Name="ve_vehiculo_responsable_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ve_vehiculo_modelo_ve_vehiculo_marca">
+          <End Role="ve_vehiculo_marca" Type="Self.ve_vehiculo_marca" Multiplicity="0..1" />
+          <End Role="ve_vehiculo_modelo" Type="Self.ve_vehiculo_modelo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ve_vehiculo_marca">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ve_vehiculo_modelo">
+              <PropertyRef Name="ve_vehiculo_marca_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ve_vehiculo_modelo_ve_vehiculo_tipo">
+          <End Role="ve_vehiculo_tipo" Type="Self.ve_vehiculo_tipo" Multiplicity="0..1" />
+          <End Role="ve_vehiculo_modelo" Type="Self.ve_vehiculo_modelo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ve_vehiculo_tipo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ve_vehiculo_modelo">
+              <PropertyRef Name="ve_vehiculo_tipo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ve_vehiculo_Pais">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="1" />
+          <End Role="ve_vehiculo" Type="Self.ve_vehiculo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="PaisCodigo" />
+            </Principal>
+            <Dependent Role="ve_vehiculo">
+              <PropertyRef Name="PaisCodigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ve_vehiculo_responsable_per_persona">
+          <End Role="per_persona" Type="Self.per_persona" Multiplicity="0..1" />
+          <End Role="ve_vehiculo_responsable" Type="Self.ve_vehiculo_responsable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="per_persona">
+              <PropertyRef Name="cedula" />
+            </Principal>
+            <Dependent Role="ve_vehiculo_responsable">
+              <PropertyRef Name="per_persona_cedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ve_vehiculo_responsable_ve_vehiculo">
+          <End Role="ve_vehiculo" Type="Self.ve_vehiculo" Multiplicity="0..1" />
+          <End Role="ve_vehiculo_responsable" Type="Self.ve_vehiculo_responsable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ve_vehiculo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ve_vehiculo_responsable">
+              <PropertyRef Name="ve_vehiculo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ve_vehiculo_ve_vehiculo_color">
+          <End Role="ve_vehiculo_color" Type="Self.ve_vehiculo_color" Multiplicity="1" />
+          <End Role="ve_vehiculo" Type="Self.ve_vehiculo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ve_vehiculo_color">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ve_vehiculo">
+              <PropertyRef Name="ve_vehiculo_color_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ve_vehiculo_ve_vehiculo_modelo">
+          <End Role="ve_vehiculo_modelo" Type="Self.ve_vehiculo_modelo" Multiplicity="1" />
+          <End Role="ve_vehiculo" Type="Self.ve_vehiculo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ve_vehiculo_modelo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ve_vehiculo">
+              <PropertyRef Name="ve_vehiculo_modelo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="db_mantenimientoModelStoreContainer">
+          <EntitySet Name="catalogo_parte_principal" EntityType="Self.catalogo_parte_principal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="catalogo_parte_secundaria" EntityType="Self.catalogo_parte_secundaria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="emp_empleado" EntityType="Self.emp_empleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="orde_detalle" EntityType="Self.orde_detalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="orden" EntityType="Self.orden" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pais" EntityType="Self.Pais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="per_persona" EntityType="Self.per_persona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ve_vehiculo" EntityType="Self.ve_vehiculo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ve_vehiculo_color" EntityType="Self.ve_vehiculo_color" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ve_vehiculo_marca" EntityType="Self.ve_vehiculo_marca" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ve_vehiculo_modelo" EntityType="Self.ve_vehiculo_modelo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ve_vehiculo_responsable" EntityType="Self.ve_vehiculo_responsable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ve_vehiculo_tipo" EntityType="Self.ve_vehiculo_tipo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_catalogo_parte_secundaria_catalogo_parte_principal" Association="Self.FK_catalogo_parte_secundaria_catalogo_parte_principal">
+            <End Role="catalogo_parte_principal" EntitySet="catalogo_parte_principal" />
+            <End Role="catalogo_parte_secundaria" EntitySet="catalogo_parte_secundaria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_emp_empleado_per_persona" Association="Self.FK_emp_empleado_per_persona">
+            <End Role="per_persona" EntitySet="per_persona" />
+            <End Role="emp_empleado" EntitySet="emp_empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orde_detalle_catalogo_parte_principal" Association="Self.FK_orde_detalle_catalogo_parte_principal">
+            <End Role="catalogo_parte_principal" EntitySet="catalogo_parte_principal" />
+            <End Role="orde_detalle" EntitySet="orde_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orde_detalle_catalogo_parte_secundaria" Association="Self.FK_orde_detalle_catalogo_parte_secundaria">
+            <End Role="catalogo_parte_secundaria" EntitySet="catalogo_parte_secundaria" />
+            <End Role="orde_detalle" EntitySet="orde_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orde_detalle_orden" Association="Self.FK_orde_detalle_orden">
+            <End Role="orden" EntitySet="orden" />
+            <End Role="orde_detalle" EntitySet="orde_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orden_emp_empleado" Association="Self.FK_orden_emp_empleado">
+            <End Role="emp_empleado" EntitySet="emp_empleado" />
+            <End Role="orden" EntitySet="orden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orden_ve_vehiculo_responsable" Association="Self.FK_orden_ve_vehiculo_responsable">
+            <End Role="ve_vehiculo_responsable" EntitySet="ve_vehiculo_responsable" />
+            <End Role="orden" EntitySet="orden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ve_vehiculo_modelo_ve_vehiculo_marca" Association="Self.FK_ve_vehiculo_modelo_ve_vehiculo_marca">
+            <End Role="ve_vehiculo_marca" EntitySet="ve_vehiculo_marca" />
+            <End Role="ve_vehiculo_modelo" EntitySet="ve_vehiculo_modelo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ve_vehiculo_modelo_ve_vehiculo_tipo" Association="Self.FK_ve_vehiculo_modelo_ve_vehiculo_tipo">
+            <End Role="ve_vehiculo_tipo" EntitySet="ve_vehiculo_tipo" />
+            <End Role="ve_vehiculo_modelo" EntitySet="ve_vehiculo_modelo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ve_vehiculo_Pais" Association="Self.FK_ve_vehiculo_Pais">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="ve_vehiculo" EntitySet="ve_vehiculo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ve_vehiculo_responsable_per_persona" Association="Self.FK_ve_vehiculo_responsable_per_persona">
+            <End Role="per_persona" EntitySet="per_persona" />
+            <End Role="ve_vehiculo_responsable" EntitySet="ve_vehiculo_responsable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ve_vehiculo_responsable_ve_vehiculo" Association="Self.FK_ve_vehiculo_responsable_ve_vehiculo">
+            <End Role="ve_vehiculo" EntitySet="ve_vehiculo" />
+            <End Role="ve_vehiculo_responsable" EntitySet="ve_vehiculo_responsable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ve_vehiculo_ve_vehiculo_color" Association="Self.FK_ve_vehiculo_ve_vehiculo_color">
+            <End Role="ve_vehiculo_color" EntitySet="ve_vehiculo_color" />
+            <End Role="ve_vehiculo" EntitySet="ve_vehiculo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ve_vehiculo_ve_vehiculo_modelo" Association="Self.FK_ve_vehiculo_ve_vehiculo_modelo">
+            <End Role="ve_vehiculo_modelo" EntitySet="ve_vehiculo_modelo" />
+            <End Role="ve_vehiculo" EntitySet="ve_vehiculo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="db_mantenimientoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="catalogo_parte_principal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="catalogo_parte_secundaria" Relationship="Self.FK_catalogo_parte_secundaria_catalogo_parte_principal" FromRole="catalogo_parte_principal" ToRole="catalogo_parte_secundaria" />
+          <NavigationProperty Name="orde_detalle" Relationship="Self.FK_orde_detalle_catalogo_parte_principal" FromRole="catalogo_parte_principal" ToRole="orde_detalle" />
+        </EntityType>
+        <EntityType Name="catalogo_parte_secundaria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="catalogo_parte_principal_id" Type="Int32" />
+          <Property Name="estado" Type="Int32" />
+          <Property Name="tipo_sub_parte" Type="Int32" />
+          <NavigationProperty Name="catalogo_parte_principal" Relationship="Self.FK_catalogo_parte_secundaria_catalogo_parte_principal" FromRole="catalogo_parte_secundaria" ToRole="catalogo_parte_principal" />
+          <NavigationProperty Name="orde_detalle" Relationship="Self.FK_orde_detalle_catalogo_parte_secundaria" FromRole="catalogo_parte_secundaria" ToRole="orde_detalle" />
+        </EntityType>
+        <EntityType Name="emp_empleado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="cedula" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="cargo_id" Type="Int32" />
+          <Property Name="pwd" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="activo" Type="Boolean" />
+          <Property Name="fecha_activacion" Type="DateTime" Precision="0" />
+          <Property Name="fecha_desactivacion" Type="DateTime" Precision="0" />
+          <Property Name="per_persona_cedula_activacion" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="tipo_usuario" Type="Int32" />
+          <Property Name="observaciones_activacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="observaciones_desactivacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="per_persona" Relationship="Self.FK_emp_empleado_per_persona" FromRole="emp_empleado" ToRole="per_persona" />
+          <NavigationProperty Name="orden" Relationship="Self.FK_orden_emp_empleado" FromRole="emp_empleado" ToRole="orden" />
+        </EntityType>
+        <EntityType Name="orde_detalle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="catalogo_parte_principal_id" Type="Int32" />
+          <Property Name="catalogo_parte_secundaria_id" Type="Int32" />
+          <Property Name="accion_realizada" Type="Int32" />
+          <Property Name="cantidad" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="Boolean" />
+          <Property Name="accion_requerida" Type="Int32" />
+          <Property Name="orden_id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="catalogo_parte_principal" Relationship="Self.FK_orde_detalle_catalogo_parte_principal" FromRole="orde_detalle" ToRole="catalogo_parte_principal" />
+          <NavigationProperty Name="catalogo_parte_secundaria" Relationship="Self.FK_orde_detalle_catalogo_parte_secundaria" FromRole="orde_detalle" ToRole="catalogo_parte_secundaria" />
+          <NavigationProperty Name="orden" Relationship="Self.FK_orde_detalle_orden" FromRole="orde_detalle" ToRole="orden" />
+        </EntityType>
+        <EntityType Name="orden">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="tipo_oden" Type="Int32" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Precision="0" />
+          <Property Name="hora" Type="Time" Precision="7" />
+          <Property Name="estado" Type="Int32" />
+          <Property Name="ve_vehiculo_responsable_id" Type="Int32" />
+          <Property Name="emp_empleado_id" Type="Int32" />
+          <Property Name="observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="km_ingreso" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="km_egreso" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="emp_empleado" Relationship="Self.FK_orden_emp_empleado" FromRole="orden" ToRole="emp_empleado" />
+          <NavigationProperty Name="orde_detalle" Relationship="Self.FK_orde_detalle_orden" FromRole="orden" ToRole="orde_detalle" />
+          <NavigationProperty Name="ve_vehiculo_responsable" Relationship="Self.FK_orden_ve_vehiculo_responsable" FromRole="orden" ToRole="ve_vehiculo_responsable" />
+        </EntityType>
+        <EntityType Name="Pais">
+          <Key>
+            <PropertyRef Name="PaisCodigo" />
+          </Key>
+          <Property Name="PaisCodigo" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="PaisNombre" Type="String" MaxLength="52" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="PaisContinente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PaisRegion" Type="String" MaxLength="26" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PaisArea" Type="Double" Nullable="false" />
+          <Property Name="PaisIndependencia" Type="Int16" />
+          <Property Name="PaisPoblacion" Type="Int32" Nullable="false" />
+          <Property Name="PaisExpectativaDeVida" Type="Double" />
+          <Property Name="PaisProductoInternoBruto" Type="Double" />
+          <Property Name="PaisProductoInternoBrutoAntiguo" Type="Double" />
+          <Property Name="PaisNombreLocal" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PaisGobierno" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PaisJefeDeEstado" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="PaisCapital" Type="Int32" />
+          <Property Name="PaisCodigo2" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ve_vehiculo" Relationship="Self.FK_ve_vehiculo_Pais" FromRole="Pais" ToRole="ve_vehiculo" />
+        </EntityType>
+        <EntityType Name="per_persona">
+          <Key>
+            <PropertyRef Name="cedula" />
+          </Key>
+          <Property Name="cedula" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="nombres" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidos" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_nacimiento" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="emp_empleado" Relationship="Self.FK_emp_empleado_per_persona" FromRole="per_persona" ToRole="emp_empleado" />
+          <NavigationProperty Name="ve_vehiculo_responsable" Relationship="Self.FK_ve_vehiculo_responsable_per_persona" FromRole="per_persona" ToRole="ve_vehiculo_responsable" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="ve_vehiculo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="ve_vehiculo_modelo_id" Type="Int32" Nullable="false" />
+          <Property Name="ve_vehiculo_color_id" Type="Int32" Nullable="false" />
+          <Property Name="anio_fabricacion" Type="Int32" />
+          <Property Name="anio_compra" Type="Int32" Nullable="false" />
+          <Property Name="cilindraje" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="codigo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="codigo_anterior" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="color" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="costo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="estado" Type="Int32" />
+          <Property Name="PaisCodigo" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="placa" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="placa_provisional" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="serie_chasis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="serie_motor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Pais" Relationship="Self.FK_ve_vehiculo_Pais" FromRole="ve_vehiculo" ToRole="Pais" />
+          <NavigationProperty Name="ve_vehiculo_responsable" Relationship="Self.FK_ve_vehiculo_responsable_ve_vehiculo" FromRole="ve_vehiculo" ToRole="ve_vehiculo_responsable" />
+          <NavigationProperty Name="ve_vehiculo_color" Relationship="Self.FK_ve_vehiculo_ve_vehiculo_color" FromRole="ve_vehiculo" ToRole="ve_vehiculo_color" />
+          <NavigationProperty Name="ve_vehiculo_modelo" Relationship="Self.FK_ve_vehiculo_ve_vehiculo_modelo" FromRole="ve_vehiculo" ToRole="ve_vehiculo_modelo" />
+        </EntityType>
+        <EntityType Name="ve_vehiculo_color">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="codigo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="nombre_especifico" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="nombre_comun" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ve_vehiculo" Relationship="Self.FK_ve_vehiculo_ve_vehiculo_color" FromRole="ve_vehiculo_color" ToRole="ve_vehiculo" />
+        </EntityType>
+        <EntityType Name="ve_vehiculo_marca">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="obserbacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ve_vehiculo_modelo" Relationship="Self.FK_ve_vehiculo_modelo_ve_vehiculo_marca" FromRole="ve_vehiculo_marca" ToRole="ve_vehiculo_modelo" />
+        </EntityType>
+        <EntityType Name="ve_vehiculo_modelo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="modelo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ve_vehiculo_marca_id" Type="Int32" />
+          <Property Name="tipo_combustible" Type="Int32" />
+          <Property Name="traccion" Type="Boolean" />
+          <Property Name="imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="tipo_motor" Type="Int32" />
+          <Property Name="ve_vehiculo_tipo_id" Type="Int32" />
+          <NavigationProperty Name="ve_vehiculo" Relationship="Self.FK_ve_vehiculo_ve_vehiculo_modelo" FromRole="ve_vehiculo_modelo" ToRole="ve_vehiculo" />
+          <NavigationProperty Name="ve_vehiculo_marca" Relationship="Self.FK_ve_vehiculo_modelo_ve_vehiculo_marca" FromRole="ve_vehiculo_modelo" ToRole="ve_vehiculo_marca" />
+          <NavigationProperty Name="ve_vehiculo_tipo" Relationship="Self.FK_ve_vehiculo_modelo_ve_vehiculo_tipo" FromRole="ve_vehiculo_modelo" ToRole="ve_vehiculo_tipo" />
+        </EntityType>
+        <EntityType Name="ve_vehiculo_responsable">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="per_persona_cedula" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ve_vehiculo_id" Type="Int32" />
+          <Property Name="estado" Type="Boolean" />
+          <Property Name="fecha" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="orden" Relationship="Self.FK_orden_ve_vehiculo_responsable" FromRole="ve_vehiculo_responsable" ToRole="orden" />
+          <NavigationProperty Name="per_persona" Relationship="Self.FK_ve_vehiculo_responsable_per_persona" FromRole="ve_vehiculo_responsable" ToRole="per_persona" />
+          <NavigationProperty Name="ve_vehiculo" Relationship="Self.FK_ve_vehiculo_responsable_ve_vehiculo" FromRole="ve_vehiculo_responsable" ToRole="ve_vehiculo" />
+        </EntityType>
+        <EntityType Name="ve_vehiculo_tipo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="tipo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="ve_vehiculo_modelo" Relationship="Self.FK_ve_vehiculo_modelo_ve_vehiculo_tipo" FromRole="ve_vehiculo_tipo" ToRole="ve_vehiculo_modelo" />
+        </EntityType>
+        <Association Name="FK_catalogo_parte_secundaria_catalogo_parte_principal">
+          <End Role="catalogo_parte_principal" Type="Self.catalogo_parte_principal" Multiplicity="0..1" />
+          <End Role="catalogo_parte_secundaria" Type="Self.catalogo_parte_secundaria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="catalogo_parte_principal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="catalogo_parte_secundaria">
+              <PropertyRef Name="catalogo_parte_principal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orde_detalle_catalogo_parte_principal">
+          <End Role="catalogo_parte_principal" Type="Self.catalogo_parte_principal" Multiplicity="0..1" />
+          <End Role="orde_detalle" Type="Self.orde_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="catalogo_parte_principal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="orde_detalle">
+              <PropertyRef Name="catalogo_parte_principal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orde_detalle_catalogo_parte_secundaria">
+          <End Role="catalogo_parte_secundaria" Type="Self.catalogo_parte_secundaria" Multiplicity="0..1" />
+          <End Role="orde_detalle" Type="Self.orde_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="catalogo_parte_secundaria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="orde_detalle">
+              <PropertyRef Name="catalogo_parte_secundaria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_emp_empleado_per_persona">
+          <End Role="per_persona" Type="Self.per_persona" Multiplicity="0..1" />
+          <End Role="emp_empleado" Type="Self.emp_empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="per_persona">
+              <PropertyRef Name="cedula" />
+            </Principal>
+            <Dependent Role="emp_empleado">
+              <PropertyRef Name="cedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orden_emp_empleado">
+          <End Role="emp_empleado" Type="Self.emp_empleado" Multiplicity="0..1" />
+          <End Role="orden" Type="Self.orden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="emp_empleado">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="orden">
+              <PropertyRef Name="emp_empleado_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orde_detalle_orden">
+          <End Role="orden" Type="Self.orden" Multiplicity="0..1" />
+          <End Role="orde_detalle" Type="Self.orde_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="orden">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="orde_detalle">
+              <PropertyRef Name="orden_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orden_ve_vehiculo_responsable">
+          <End Role="ve_vehiculo_responsable" Type="Self.ve_vehiculo_responsable" Multiplicity="0..1" />
+          <End Role="orden" Type="Self.orden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ve_vehiculo_responsable">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="orden">
+              <PropertyRef Name="ve_vehiculo_responsable_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ve_vehiculo_Pais">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="1" />
+          <End Role="ve_vehiculo" Type="Self.ve_vehiculo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="PaisCodigo" />
+            </Principal>
+            <Dependent Role="ve_vehiculo">
+              <PropertyRef Name="PaisCodigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ve_vehiculo_responsable_per_persona">
+          <End Role="per_persona" Type="Self.per_persona" Multiplicity="0..1" />
+          <End Role="ve_vehiculo_responsable" Type="Self.ve_vehiculo_responsable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="per_persona">
+              <PropertyRef Name="cedula" />
+            </Principal>
+            <Dependent Role="ve_vehiculo_responsable">
+              <PropertyRef Name="per_persona_cedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ve_vehiculo_responsable_ve_vehiculo">
+          <End Role="ve_vehiculo" Type="Self.ve_vehiculo" Multiplicity="0..1" />
+          <End Role="ve_vehiculo_responsable" Type="Self.ve_vehiculo_responsable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ve_vehiculo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ve_vehiculo_responsable">
+              <PropertyRef Name="ve_vehiculo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ve_vehiculo_ve_vehiculo_color">
+          <End Role="ve_vehiculo_color" Type="Self.ve_vehiculo_color" Multiplicity="1" />
+          <End Role="ve_vehiculo" Type="Self.ve_vehiculo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ve_vehiculo_color">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ve_vehiculo">
+              <PropertyRef Name="ve_vehiculo_color_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ve_vehiculo_ve_vehiculo_modelo">
+          <End Role="ve_vehiculo_modelo" Type="Self.ve_vehiculo_modelo" Multiplicity="1" />
+          <End Role="ve_vehiculo" Type="Self.ve_vehiculo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ve_vehiculo_modelo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ve_vehiculo">
+              <PropertyRef Name="ve_vehiculo_modelo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ve_vehiculo_modelo_ve_vehiculo_marca">
+          <End Role="ve_vehiculo_marca" Type="Self.ve_vehiculo_marca" Multiplicity="0..1" />
+          <End Role="ve_vehiculo_modelo" Type="Self.ve_vehiculo_modelo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ve_vehiculo_marca">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ve_vehiculo_modelo">
+              <PropertyRef Name="ve_vehiculo_marca_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ve_vehiculo_modelo_ve_vehiculo_tipo">
+          <End Role="ve_vehiculo_tipo" Type="Self.ve_vehiculo_tipo" Multiplicity="0..1" />
+          <End Role="ve_vehiculo_modelo" Type="Self.ve_vehiculo_modelo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ve_vehiculo_tipo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ve_vehiculo_modelo">
+              <PropertyRef Name="ve_vehiculo_tipo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="catalogo_parte_principal" EntityType="Self.catalogo_parte_principal" />
+          <EntitySet Name="catalogo_parte_secundaria" EntityType="Self.catalogo_parte_secundaria" />
+          <EntitySet Name="emp_empleado" EntityType="Self.emp_empleado" />
+          <EntitySet Name="orde_detalle" EntityType="Self.orde_detalle" />
+          <EntitySet Name="orden" EntityType="Self.orden" />
+          <EntitySet Name="Pais" EntityType="Self.Pais" />
+          <EntitySet Name="per_persona" EntityType="Self.per_persona" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="ve_vehiculo" EntityType="Self.ve_vehiculo" />
+          <EntitySet Name="ve_vehiculo_color" EntityType="Self.ve_vehiculo_color" />
+          <EntitySet Name="ve_vehiculo_marca" EntityType="Self.ve_vehiculo_marca" />
+          <EntitySet Name="ve_vehiculo_modelo" EntityType="Self.ve_vehiculo_modelo" />
+          <EntitySet Name="ve_vehiculo_responsable" EntityType="Self.ve_vehiculo_responsable" />
+          <EntitySet Name="ve_vehiculo_tipo" EntityType="Self.ve_vehiculo_tipo" />
+          <AssociationSet Name="FK_catalogo_parte_secundaria_catalogo_parte_principal" Association="Self.FK_catalogo_parte_secundaria_catalogo_parte_principal">
+            <End Role="catalogo_parte_principal" EntitySet="catalogo_parte_principal" />
+            <End Role="catalogo_parte_secundaria" EntitySet="catalogo_parte_secundaria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orde_detalle_catalogo_parte_principal" Association="Self.FK_orde_detalle_catalogo_parte_principal">
+            <End Role="catalogo_parte_principal" EntitySet="catalogo_parte_principal" />
+            <End Role="orde_detalle" EntitySet="orde_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orde_detalle_catalogo_parte_secundaria" Association="Self.FK_orde_detalle_catalogo_parte_secundaria">
+            <End Role="catalogo_parte_secundaria" EntitySet="catalogo_parte_secundaria" />
+            <End Role="orde_detalle" EntitySet="orde_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_emp_empleado_per_persona" Association="Self.FK_emp_empleado_per_persona">
+            <End Role="per_persona" EntitySet="per_persona" />
+            <End Role="emp_empleado" EntitySet="emp_empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orden_emp_empleado" Association="Self.FK_orden_emp_empleado">
+            <End Role="emp_empleado" EntitySet="emp_empleado" />
+            <End Role="orden" EntitySet="orden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orde_detalle_orden" Association="Self.FK_orde_detalle_orden">
+            <End Role="orden" EntitySet="orden" />
+            <End Role="orde_detalle" EntitySet="orde_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orden_ve_vehiculo_responsable" Association="Self.FK_orden_ve_vehiculo_responsable">
+            <End Role="ve_vehiculo_responsable" EntitySet="ve_vehiculo_responsable" />
+            <End Role="orden" EntitySet="orden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ve_vehiculo_Pais" Association="Self.FK_ve_vehiculo_Pais">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="ve_vehiculo" EntitySet="ve_vehiculo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ve_vehiculo_responsable_per_persona" Association="Self.FK_ve_vehiculo_responsable_per_persona">
+            <End Role="per_persona" EntitySet="per_persona" />
+            <End Role="ve_vehiculo_responsable" EntitySet="ve_vehiculo_responsable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ve_vehiculo_responsable_ve_vehiculo" Association="Self.FK_ve_vehiculo_responsable_ve_vehiculo">
+            <End Role="ve_vehiculo" EntitySet="ve_vehiculo" />
+            <End Role="ve_vehiculo_responsable" EntitySet="ve_vehiculo_responsable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ve_vehiculo_ve_vehiculo_color" Association="Self.FK_ve_vehiculo_ve_vehiculo_color">
+            <End Role="ve_vehiculo_color" EntitySet="ve_vehiculo_color" />
+            <End Role="ve_vehiculo" EntitySet="ve_vehiculo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ve_vehiculo_ve_vehiculo_modelo" Association="Self.FK_ve_vehiculo_ve_vehiculo_modelo">
+            <End Role="ve_vehiculo_modelo" EntitySet="ve_vehiculo_modelo" />
+            <End Role="ve_vehiculo" EntitySet="ve_vehiculo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ve_vehiculo_modelo_ve_vehiculo_marca" Association="Self.FK_ve_vehiculo_modelo_ve_vehiculo_marca">
+            <End Role="ve_vehiculo_marca" EntitySet="ve_vehiculo_marca" />
+            <End Role="ve_vehiculo_modelo" EntitySet="ve_vehiculo_modelo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ve_vehiculo_modelo_ve_vehiculo_tipo" Association="Self.FK_ve_vehiculo_modelo_ve_vehiculo_tipo">
+            <End Role="ve_vehiculo_tipo" EntitySet="ve_vehiculo_tipo" />
+            <End Role="ve_vehiculo_modelo" EntitySet="ve_vehiculo_modelo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="db_mantenimientoModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="catalogo_parte_principal">
+            <EntityTypeMapping TypeName="db_mantenimientoModel.catalogo_parte_principal">
+              <MappingFragment StoreEntitySet="catalogo_parte_principal">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="catalogo_parte_secundaria">
+            <EntityTypeMapping TypeName="db_mantenimientoModel.catalogo_parte_secundaria">
+              <MappingFragment StoreEntitySet="catalogo_parte_secundaria">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="catalogo_parte_principal_id" ColumnName="catalogo_parte_principal_id" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="tipo_sub_parte" ColumnName="tipo_sub_parte" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="emp_empleado">
+            <EntityTypeMapping TypeName="db_mantenimientoModel.emp_empleado">
+              <MappingFragment StoreEntitySet="emp_empleado">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="cargo_id" ColumnName="cargo_id" />
+                <ScalarProperty Name="pwd" ColumnName="pwd" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="fecha_activacion" ColumnName="fecha_activacion" />
+                <ScalarProperty Name="fecha_desactivacion" ColumnName="fecha_desactivacion" />
+                <ScalarProperty Name="per_persona_cedula_activacion" ColumnName="per_persona_cedula_activacion" />
+                <ScalarProperty Name="tipo_usuario" ColumnName="tipo_usuario" />
+                <ScalarProperty Name="observaciones_activacion" ColumnName="observaciones_activacion" />
+                <ScalarProperty Name="observaciones_desactivacion" ColumnName="observaciones_desactivacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="orde_detalle">
+            <EntityTypeMapping TypeName="db_mantenimientoModel.orde_detalle">
+              <MappingFragment StoreEntitySet="orde_detalle">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="catalogo_parte_principal_id" ColumnName="catalogo_parte_principal_id" />
+                <ScalarProperty Name="catalogo_parte_secundaria_id" ColumnName="catalogo_parte_secundaria_id" />
+                <ScalarProperty Name="accion_realizada" ColumnName="accion_realizada" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="observacion" ColumnName="observacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="accion_requerida" ColumnName="accion_requerida" />
+                <ScalarProperty Name="orden_id" ColumnName="orden_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="orden">
+            <EntityTypeMapping TypeName="db_mantenimientoModel.orden">
+              <MappingFragment StoreEntitySet="orden">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tipo_oden" ColumnName="tipo_oden" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="hora" ColumnName="hora" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="ve_vehiculo_responsable_id" ColumnName="ve_vehiculo_responsable_id" />
+                <ScalarProperty Name="emp_empleado_id" ColumnName="emp_empleado_id" />
+                <ScalarProperty Name="observacion" ColumnName="observacion" />
+                <ScalarProperty Name="km_ingreso" ColumnName="km_ingreso" />
+                <ScalarProperty Name="km_egreso" ColumnName="km_egreso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pais">
+            <EntityTypeMapping TypeName="db_mantenimientoModel.Pais">
+              <MappingFragment StoreEntitySet="Pais">
+                <ScalarProperty Name="PaisCodigo" ColumnName="PaisCodigo" />
+                <ScalarProperty Name="PaisNombre" ColumnName="PaisNombre" />
+                <ScalarProperty Name="PaisContinente" ColumnName="PaisContinente" />
+                <ScalarProperty Name="PaisRegion" ColumnName="PaisRegion" />
+                <ScalarProperty Name="PaisArea" ColumnName="PaisArea" />
+                <ScalarProperty Name="PaisIndependencia" ColumnName="PaisIndependencia" />
+                <ScalarProperty Name="PaisPoblacion" ColumnName="PaisPoblacion" />
+                <ScalarProperty Name="PaisExpectativaDeVida" ColumnName="PaisExpectativaDeVida" />
+                <ScalarProperty Name="PaisProductoInternoBruto" ColumnName="PaisProductoInternoBruto" />
+                <ScalarProperty Name="PaisProductoInternoBrutoAntiguo" ColumnName="PaisProductoInternoBrutoAntiguo" />
+                <ScalarProperty Name="PaisNombreLocal" ColumnName="PaisNombreLocal" />
+                <ScalarProperty Name="PaisGobierno" ColumnName="PaisGobierno" />
+                <ScalarProperty Name="PaisJefeDeEstado" ColumnName="PaisJefeDeEstado" />
+                <ScalarProperty Name="PaisCapital" ColumnName="PaisCapital" />
+                <ScalarProperty Name="PaisCodigo2" ColumnName="PaisCodigo2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="per_persona">
+            <EntityTypeMapping TypeName="db_mantenimientoModel.per_persona">
+              <MappingFragment StoreEntitySet="per_persona">
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="db_mantenimientoModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ve_vehiculo">
+            <EntityTypeMapping TypeName="db_mantenimientoModel.ve_vehiculo">
+              <MappingFragment StoreEntitySet="ve_vehiculo">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ve_vehiculo_modelo_id" ColumnName="ve_vehiculo_modelo_id" />
+                <ScalarProperty Name="ve_vehiculo_color_id" ColumnName="ve_vehiculo_color_id" />
+                <ScalarProperty Name="anio_fabricacion" ColumnName="anio_fabricacion" />
+                <ScalarProperty Name="anio_compra" ColumnName="anio_compra" />
+                <ScalarProperty Name="cilindraje" ColumnName="cilindraje" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="codigo_anterior" ColumnName="codigo_anterior" />
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="costo" ColumnName="costo" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="PaisCodigo" ColumnName="PaisCodigo" />
+                <ScalarProperty Name="placa" ColumnName="placa" />
+                <ScalarProperty Name="placa_provisional" ColumnName="placa_provisional" />
+                <ScalarProperty Name="serie_chasis" ColumnName="serie_chasis" />
+                <ScalarProperty Name="serie_motor" ColumnName="serie_motor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ve_vehiculo_color">
+            <EntityTypeMapping TypeName="db_mantenimientoModel.ve_vehiculo_color">
+              <MappingFragment StoreEntitySet="ve_vehiculo_color">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="nombre_especifico" ColumnName="nombre_especifico" />
+                <ScalarProperty Name="nombre_comun" ColumnName="nombre_comun" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ve_vehiculo_marca">
+            <EntityTypeMapping TypeName="db_mantenimientoModel.ve_vehiculo_marca">
+              <MappingFragment StoreEntitySet="ve_vehiculo_marca">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="obserbacion" ColumnName="obserbacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ve_vehiculo_modelo">
+            <EntityTypeMapping TypeName="db_mantenimientoModel.ve_vehiculo_modelo">
+              <MappingFragment StoreEntitySet="ve_vehiculo_modelo">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="modelo" ColumnName="modelo" />
+                <ScalarProperty Name="observacion" ColumnName="observacion" />
+                <ScalarProperty Name="ve_vehiculo_marca_id" ColumnName="ve_vehiculo_marca_id" />
+                <ScalarProperty Name="tipo_combustible" ColumnName="tipo_combustible" />
+                <ScalarProperty Name="traccion" ColumnName="traccion" />
+                <ScalarProperty Name="imagen" ColumnName="imagen" />
+                <ScalarProperty Name="tipo_motor" ColumnName="tipo_motor" />
+                <ScalarProperty Name="ve_vehiculo_tipo_id" ColumnName="ve_vehiculo_tipo_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ve_vehiculo_responsable">
+            <EntityTypeMapping TypeName="db_mantenimientoModel.ve_vehiculo_responsable">
+              <MappingFragment StoreEntitySet="ve_vehiculo_responsable">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="per_persona_cedula" ColumnName="per_persona_cedula" />
+                <ScalarProperty Name="ve_vehiculo_id" ColumnName="ve_vehiculo_id" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ve_vehiculo_tipo">
+            <EntityTypeMapping TypeName="db_mantenimientoModel.ve_vehiculo_tipo">
+              <MappingFragment StoreEntitySet="ve_vehiculo_tipo">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
